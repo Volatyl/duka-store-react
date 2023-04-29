@@ -1,9 +1,18 @@
 import React from "react";
 
 function AddItem() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(e);
+  }
+
   return (
     <div id="add">
-      <form>
+      <form
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
         <p>Add Item</p>
         <input type="text" placeholder="Item Name" />
         <input type="text" placeholder="Price" />

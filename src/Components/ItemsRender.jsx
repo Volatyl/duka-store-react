@@ -16,9 +16,11 @@ function ItemsRender({ filteredData, cartItems, setCartItems }) {
               <p>{item.title}</p>
               <p className="price">Ksh: {item.price}</p>
               <p>SKU: {item.quantity}</p>
-              <button onClick={() => handleAdd(item)}>Add To Cart</button>
+              <button onClick={() => handleAdd(item)} className="addBtn">
+                Add To Cart
+              </button>
               <br />
-              <button>Delete Item</button>
+              <button className="delBtn">Delete Item</button>
             </div>
           </li>
         );
