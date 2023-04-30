@@ -7,18 +7,19 @@ function ItemsRender({
   setCartItems,
 }) {
   function handleAdd(item) {
-    const newDataArray = [...cartItems, item];
-    setCartItems(newDataArray);
-    const newSku = item.quantity - 1;
-    console.log(newSku);
-    fetch(`http://localhost:3000/products/${item.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ quantity: newSku }),
-    });
-    
+    console.log(item)
+    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    if (existingItem) {
+      const updatedCartItems = cartItems.map((cartItem) =>
+        cartItem.id === item.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      );
+      setCartItems(updatedCartItems);
+    } else {
+      const newCartItem = { ...item, quantity: 1 };
+      setCartItems([...cartItems, newCartItem]);
+    }
   }
 
   function handleDelete(item) {

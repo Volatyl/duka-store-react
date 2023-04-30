@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 
 function Cart({ cartItems, setCartItems }) {
+  console.log(cartItems)
   function handleRemove(item) {
-    const remove = cartItems.filter((product) => product.id !== item.id);
+    
+    const updatedCartItems = cartItems.map((cartItem) =>
+      cartItem.id === item.id
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem
+    );
+    const remove = updatedCartItems.filter((product) => product.quantity !== 0);
     setCartItems(remove);
   }
 
-  const total = cartItems.reduce((acc, product) => acc + product.price, 0);
+  const total = cartItems.reduce(
+    (acc, product) => acc + product.price * product.quantity,
+    0
+  );
 
   return (
     <div id="cart">
@@ -17,8 +27,9 @@ function Cart({ cartItems, setCartItems }) {
             <li key={item.id} className="cartLi">
               <img src={item.image} />
               <p>{item.title}</p>
-              <br/>
+              <br />
               <p>Ksh: {item.price}</p>
+              <p>Quantity: {item.quantity}</p>
               <button className="delete" onClick={() => handleRemove(item)}>
                 Remove
               </button>
