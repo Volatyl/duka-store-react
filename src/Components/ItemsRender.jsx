@@ -1,9 +1,32 @@
 import React from "react";
 
-function ItemsRender({ filteredData, cartItems, setCartItems }) {
+function ItemsRender({
+  filteredData,
+  setFilteredData,
+  cartItems,
+  setCartItems,
+}) {
   function handleAdd(item) {
     const newDataArray = [...cartItems, item];
     setCartItems(newDataArray);
+    const newSku = item.quantity - 1;
+    console.log(newSku);
+    fetch(`http://localhost:3000/products/${item.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ quantity: newSku }),
+    });
+    
+  }
+
+  function handleDelete(item) {
+    console.log(item.id);
+    fetch(`http://localhost:3000/products/${item.id}`, {
+      method: "DELETE",
+    });
+    setFilteredData(filteredData.filter((x) => x.id !== item.id));
   }
 
   return (
@@ -20,7 +43,9 @@ function ItemsRender({ filteredData, cartItems, setCartItems }) {
                 Add To Cart
               </button>
               <br />
-              <button className="delBtn">Delete Item</button>
+              <button className="delBtn" onClick={() => handleDelete(item)}>
+                Delete Item
+              </button>
             </div>
           </li>
         );

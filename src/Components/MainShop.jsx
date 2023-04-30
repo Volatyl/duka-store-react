@@ -19,6 +19,7 @@ function MainShop() {
       <Cart cartItems={cartItems} setCartItems={setCartItems} />
       <ul className="itemUl">
         <ItemsRender
+        setFilteredData={setFilteredData}
           filteredData={filteredData}
           cartItems={cartItems}
           setCartItems={setCartItems}

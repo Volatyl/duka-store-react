@@ -53,10 +53,14 @@
   width: 100%;
 }
 .li .delBtn {
-  background-color: rgb(196, 0, 0);
+  background-color: rgb(255, 0, 0);
   color: white;
   border: none;
   width: 100%;
+}
+.delBtn:hover {
+  background-color: rgb(128, 0, 0);
+  color: antiquewhite;
 }
 #cart {
   text-align: center;
